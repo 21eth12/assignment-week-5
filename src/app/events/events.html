@@ -1,0 +1,47 @@
+<div class="page-hero">
+  <div class="container">
+    <div class="eyebrow" style="color:#ffd0a6">Stay connected</div>
+    <h1>Events &amp; Training</h1>
+    <p>Register for upcoming YRA programmes or explore the training archive.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Upcoming</div>
+        <h2>Registration is open</h2>
+      </div>
+    </div>
+
+    <div class="filters">
+      <button class="btn btn-secondary" [class.active]="!category() && !month()" (click)="clear()">All</button>
+
+      @for (c of categories; track c) {
+        <button class="btn btn-secondary" [class.active]="category() === c" (click)="setFilter('category', c)">{{ c }}</button>
+      }
+
+      @for (m of months; track m.value) {
+        <button class="btn btn-secondary" [class.active]="month() === m.value" (click)="setFilter('month', m.value)">{{ m.label }}</button>
+      }
+    </div>
+
+    <div class="grid3">
+      @for (e of filtered(); track e.id) {
+        <div class="card event-card">
+          <div class="event-img">{{ e.heading.toUpperCase() }}</div>
+          <div class="event-body">
+            <span class="badge">{{ e.category }}</span>
+            <h3>{{ e.title }}</h3>
+            <div class="meta">{{ e.date }} · {{ e.mode }} · {{ e.duration }}</div>
+            <p>{{ e.summary }} Fee: <b>{{ e.fee }}</b></p>
+            <a class="btn btn-primary" [routerLink]="['/events', e.id]">{{ e.buttonLabel }}</a>
+          </div>
+        </div>
+      } @empty {
+        <div class="card"><h3>No events match these filters</h3></div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+<div class="section">
+  <div class="container" style="max-width:560px">
+    <div class="card">
+      <div class="eyebrow">YRA Account</div>
+      <h2>Welcome back</h2>
+      <p>Sign in to access your member dashboard.</p>
+
+      <form class="form" (submit)="onSubmit($event)" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" type="email" placeholder="you@example.com" [formField]="loginForm.email" />
+          @if (loginForm.email().touched() && loginForm.email().invalid()) {
+            @for (err of loginForm.email().errors(); track err.kind) {
+              <small class="error">{{ err.message }}</small>
+            }
+          }
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="••••••••" [formField]="loginForm.password" />
+          @if (loginForm.password().touched() && loginForm.password().invalid()) {
+            @for (err of loginForm.password().errors(); track err.kind) {
+              <small class="error">{{ err.message }}</small>
+            }
+          }
+        </div>
+
+        <label style="font-size:13px">
+          <input type="checkbox" [formField]="loginForm.remember" /> Remember me
+        </label>
+
+        <button class="btn btn-primary" [disabled]="loginForm().invalid()">Sign in</button>
+      </form>
+    </div>
+  </div>
+</div>
